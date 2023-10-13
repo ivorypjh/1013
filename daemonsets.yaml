@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet # 생성하고자 하는 오브젝트 종류
+metadata:
+  name: prometheus-daemonset
+spec:
+  selector:
+    matchLabels:
+      tier: monitoring # 사용자 정의 레이블로 모니터링 용도로 사용할 것임을 지정
+      name: prometheus-exporter # 모니터링에 사용하는 이름
+  template:
+    metadata:
+      labels:
+      # 위의 selector 와 동일하게 tier 와 name 을 생성
+        tier: monitoring #모니터링 용도
+        name: prometheus-exporter
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/node-exporter
+          ports:
+          - containerPort: 80

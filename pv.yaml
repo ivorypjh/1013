@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume # 영구 볼륨 생성
+metadata:
+  name: mysql-pv
+  labels:
+    type: local
+spec:
+  # 영구 볼륨 클레임의 요청을 현재 영구 볼륨에 바인딩 - manual
+  storageClassName: manual 
+  capacity: # 용량 설정
+    storage: 10Gi # 10 GB - 중간에 수정하는 경우가 많음
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data" # 나중에 이 부분은 외부 저장소의 URL 로 변경

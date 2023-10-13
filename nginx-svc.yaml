@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service #배포할 오브젝트 종류 설정
+#메타 데이터 설정 - 기본이 되는 옵션
+metadata:
+  name: nginx-svc #서비스 이름
+  labels:
+    app: nginx #서비스의 레이블
+spec:
+  type: NodePort #외부로 포트 포워딩 하겠다는 의미
+  ports:
+  - port: 8080
+    nodePort: 31472 #외부 포트
+    targetPort: 80  #내부 포트
+  selector:
+    app: nginx

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clusterip
+spec:
+  selector:
+    matchLabels:
+    # run 과 app 은 동일
+      run: clusterip # metadata 와 동일한 이름 
+  # strategy 를 지정하지 않고 사용 - ClusterIP 부여
+
+  replicas: 2 # 레플리카 2개
+  template:
+    metadata:
+      labels:
+      # run 을 사용할거면 여기 부분도 app 이 아니라 run 을 사용해야 함
+        run: clusterip # 이름은 계속 동일하게
+    spec: 
+      containers:
+      - image: nginx
+        name: clusterip
+        ports:
+        - containerPort: 80 # nginx 는 포트 80번 사용

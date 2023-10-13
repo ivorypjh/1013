@@ -1,0 +1,22 @@
+apiVersion: batch/v1 # 모아서 실행하는 batch
+kind: CronJob # 생성하고자 하는 오브젝트 종류
+metadata:
+  name: testcron
+spec:
+  # cronjob 을 위해 schedule 을 생성
+  schedule: "*/1 * * * *" # 1분마다 실행하도록 스케쥴 지정
+  jobTemplate: # 이전과 다르게 template 대신 jobTemplate 가 먼저 등장
+    spec:
+      template:
+        spec:
+          containers:
+          - name: testcron
+            image: busybox # 리눅스에만 설치된 이미지
+            imagePullPolicy: IfNotPresent # 이미지가 없는 경우에만 내려받음
+            command: # 실행할 명령 설정
+            - /bin/sh # shell 에 들어가기
+            - -c
+            # 한 번에 여러 개의 명령을 실행할 때 리눅스는 ; 로 구분
+            - date; echo test cronjob from Kubernetes Cluster
+          restartPolicy: OnFailure # 작업 실패 시 다시 시작
+

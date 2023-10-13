@@ -1,0 +1,11 @@
+apiVersion: v1 # 서비스이므로 앞에 app 이 붙지 않음
+kind: Service
+metadata:
+  name: mysql
+spec:
+  clusterIP: None
+  ports:
+  - port: 3306
+  selector:
+    app: mysql 
+    

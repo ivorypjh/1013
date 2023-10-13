@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-hostpath # 이름 설정
+spec:
+  containers: # 컨테이너 이름과 이미지는 emptydir 과 동일하게 사용
+  - name: nginx 
+    image: nginx 
+    volumeMounts: 
+    - name: local-storage # 볼륨의 이름 변경
+      mountPath: /data/local
+  volumes:
+  - name: local-storage # 디스크에 저장하므로 local 이라는 이름을 부여
+    hostPath:
+      path: /tmp # hostpath 의 경로 설정
+      type: Directory # 저장될 타입 지정
